@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first, tap } from 'rxjs/operators';
+import { delay, first, tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/service/auth.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/service/auth.service';
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
-  public loading: boolean = false;
+  public isLoading: boolean = false;
   public error: string = '';
 
   constructor(
@@ -30,17 +30,17 @@ export class LoginComponent implements OnInit {
   public submit(): void {
     const username: string = this.form.controls['username'].value;
     const password: string = this.form.controls['password'].value;
-    this.loading = true;
+    this.isLoading = true;
     this.service.login(username, password).pipe(
       first(),
-      tap(() => { this.loading = false; }),
+      delay(500),
+      tap(() => { this.isLoading = false; }),
+      tap(() => { this.router.navigateByUrl('/home'); })
     ).subscribe(
-      data => {
-        this.router.navigateByUrl('/home');
-      },
+      data => { },
       error => {
         this.error = error.error.message;
-        this.loading = false;
+        this.isLoading = false;
       });
   }
 }

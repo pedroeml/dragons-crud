@@ -17,7 +17,8 @@ mat-card-content {
 
 .button {
   display: flex;
-  justify-content: flex-end;
+  align-content: center;
+  justify-content: space-between;
 }
 
 .button > button {
@@ -32,7 +33,6 @@ button.disabled {
 
 .error {
   padding: 16px;
-  width: 300px;
   color: white;
   background-color: red;
 }

@@ -21,14 +21,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       mergeMap(() => {
         if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
           return this.handleAuthRequest(request);
-        } else if (request.url.endsWith('/home') && request.method === 'GET') {
-          return this.handleUsersRequest(request);
         }
 
         return next.handle(request);
       }),
       materialize(),
-      delay(1000),
+      delay(500),
       dematerialize()
     );
   }
@@ -64,25 +62,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     };
     const response: HttpResponse<UserResponse> = new HttpResponse<UserResponse>({ status: 200, body });
 
-    return of(response);
-  }
-
-  private handleUsersRequest(request: HttpRequest<any>): Observable<HttpResponse<UserResponse[]>> {
-    const authHeader: string = request.headers.get('Authorization');
-    const isLoggedIn: boolean = !isNullOrUndefined(authHeader) && authHeader.startsWith(this.token);
-
-    if (!isLoggedIn) {
-      const errorResponse: HttpErrorResponse = new HttpErrorResponse({
-        status: 401,
-        error: {
-          message: 'Unauthorized'
-        }
-      });
-      return throwError(errorResponse);
-    }
-
-    const body: UserResponse[] = this.users;
-    const response: HttpResponse<UserResponse[]> = new HttpResponse<UserResponse[]>({ status: 200, body });
     return of(response);
   }
 }

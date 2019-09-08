@@ -1,6 +1,46 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+import { UserModel } from '../model/user.model';
+import { AuthRestService } from './auth-rest.service';
 
 @Injectable()
 export class AuthService {
+  private readonly user$: BehaviorSubject<UserModel>;
+  public readonly user: Observable<UserModel>;
 
+  constructor(private readonly restService: AuthRestService) {
+    this.user$ = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('user')));
+    this.user = this.user$.asObservable();
+  }
+
+  get userValue(): UserModel {
+    return this.user$.value;
+  }
+
+  public login(username: string, password: string): Observable<UserModel> {
+    return this.restService.login(username, password).pipe(
+      map(user => new UserModel(user)),
+      tap(user => {
+        if (!isNullOrUndefined(user.token)) {
+          this.storeUser(user);
+        }
+      }),
+    );
+  }
+
+  public logout(): void {
+    this.deleteStoredUser();
+  }
+
+  private storeUser(user: UserModel): void {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.user$.next(user);
+  }
+
+  private deleteStoredUser(): void {
+    localStorage.removeItem('user');
+    this.user$.next(undefined);
+  }
 }

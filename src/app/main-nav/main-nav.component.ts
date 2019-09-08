@@ -9,7 +9,7 @@ import { map, takeUntil } from 'rxjs/operators';
   styleUrls: ['./main-nav.component.css'],
 })
 export class MainNavComponent implements OnDestroy {
-  private unsubscribe$: Subject<void>;
+  private readonly unsubscribe$: Subject<void>;
   public isHandset$: Observable<boolean>;
 
   constructor(private breakpointObserver: BreakpointObserver) {

@@ -6,6 +6,7 @@
   "rules": {
     "no-unused-expression": true,
     "no-trailing-whitespace": true,
+    "no-string-literal": false,
     "triple-equals": true,
     "eofline": true,
     "array-type": false,
@@ -45,10 +46,6 @@
       "trace"
     ],
     "no-empty": false,
-    "no-inferrable-types": [
-      true,
-      "ignore-params"
-    ],
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,

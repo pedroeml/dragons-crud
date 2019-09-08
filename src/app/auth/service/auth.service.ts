@@ -11,12 +11,12 @@ export class AuthService {
   public readonly user: Observable<UserModel>;
 
   constructor(private readonly restService: AuthRestService) {
-    this.user$ = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('user')));
+    this.user$ = new BehaviorSubject<UserModel>(this.getStoredUser());
     this.user = this.user$.asObservable();
   }
 
   get userValue(): UserModel {
-    return this.user$.value;
+    return this.user$.getValue() || this.getStoredUser();
   }
 
   public login(username: string, password: string): Observable<UserModel> {
@@ -37,6 +37,10 @@ export class AuthService {
   private storeUser(user: UserModel): void {
     localStorage.setItem('user', JSON.stringify(user));
     this.user$.next(user);
+  }
+
+  private getStoredUser(): UserModel {
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   private deleteStoredUser(): void {

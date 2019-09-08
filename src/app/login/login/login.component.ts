@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { delay, first, tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/service/auth.service';
 
 @Component({
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.service.login(username, password).pipe(
       first(),
-      delay(500),
       tap(() => { this.isLoading = false; }),
       tap(() => { this.router.navigateByUrl('/home'); })
     ).subscribe(

@@ -19,6 +19,11 @@ export class AuthService {
     return this.user$.getValue() || this.getStoredUser();
   }
 
+  public isLoggedIn(): boolean {
+    const user: UserModel = this.userValue;
+    return !isNullOrUndefined(user) && !isNullOrUndefined(user.token);
+  }
+
   public login(username: string, password: string): Observable<UserModel> {
     return this.restService.login(username, password).pipe(
       map(user => new UserModel(user)),

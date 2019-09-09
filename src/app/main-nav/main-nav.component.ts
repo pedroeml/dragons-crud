@@ -30,6 +30,10 @@ export class MainNavComponent implements OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
   public logout(): void {
     this.authService.logout();
     this.router.navigateByUrl('/login');

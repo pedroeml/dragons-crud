@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first, tap } from 'rxjs/operators';
 import { AuthService } from '../../auth/service/auth.service';
 
@@ -11,20 +11,26 @@ import { AuthService } from '../../auth/service/auth.service';
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
-  public isLoading: boolean = false;
-  public error: string = '';
+  public isLoading: boolean;
+  public error: string;
+  private readonly returnUrl: string;
 
   constructor(
-    private service: AuthService,
-    private router: Router,
-    private formBuilder: FormBuilder) { }
+    private readonly service: AuthService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly formBuilder: FormBuilder) {
+    this.isLoading = false;
+    this.error = '';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    this.service.logout();
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.service.logout();
   }
 
   public submit(): void {
@@ -34,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.service.login(username, password).pipe(
       first(),
       tap(() => { this.isLoading = false; }),
-      tap(() => { this.router.navigateByUrl('/home'); })
+      tap(() => { this.router.navigateByUrl(this.returnUrl); })
     ).subscribe(
       data => { },
       error => {

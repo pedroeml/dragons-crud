@@ -1,7 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { isNullOrUndefined } from 'util';
 import { ConfigService } from '../../config/service/config.service';
 import { UserModel } from '../model/user.model';
 import { AuthService } from '../service/auth.service';
@@ -15,13 +14,12 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const user: UserModel = this.service.userValue;
-    const isLoggedIn: boolean = !isNullOrUndefined(user) && !isNullOrUndefined(user.token);
     const isAuthApiUrl: boolean = request.url.startsWith(this.configService.getAuthApiUrl());
 
-    if (isLoggedIn && isAuthApiUrl) {
+    if (this.service.isLoggedIn() && isAuthApiUrl) {
       request = request.clone({
         setHeaders: {
-          Authorization: `${user.token}`
+          Authorization: `Bearer ${user.token}`
         }
       });
     }

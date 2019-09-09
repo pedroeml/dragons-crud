@@ -1,0 +1,25 @@
+.mat-card {
+  width: 600px;
+  margin: auto;
+}
+  
+.mat-card .full-width {
+  width: 100%;
+}
+  
+.mat-form-field {
+  width: 100%;
+}
+  
+table {
+  width: 100%;
+}
+  
+.table-container {
+  height: 100%;
+  overflow: auto;
+}
+  
+th.mat-sort-header-sorted {
+  color: black;
+}

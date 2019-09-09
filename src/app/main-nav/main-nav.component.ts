@@ -1,8 +1,6 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AuthService } from './../auth/service/auth.service';
 
 @Component({
@@ -10,24 +8,18 @@ import { AuthService } from './../auth/service/auth.service';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css'],
 })
-export class MainNavComponent implements OnDestroy {
-  private readonly unsubscribe$: Subject<void>;
-  public readonly isHandset$: Observable<boolean>;
+export class MainNavComponent implements OnInit {
+  public isHandset$: Observable<boolean>;
+
+  @Input()
+  public observeIsHandset: Observable<boolean>;
 
   constructor(
     private readonly authService: AuthService,
-    private readonly breakpointObserver: BreakpointObserver,
-    private readonly router: Router) {
-    this.unsubscribe$ = new Subject<void>();
-    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-      takeUntil(this.unsubscribe$),
-      map(result => result.matches),
-    );
-  }
+    private readonly router: Router) { }
 
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+  ngOnInit() {
+    this.isHandset$ = this.observeIsHandset;
   }
 
   get isLoggedIn(): boolean {

@@ -6,6 +6,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/home']" routerLinkActive="router-link-active" (click)="drawer.close()"><mat-icon inline=true>home</mat-icon>Home</a>
+      <a mat-list-item [routerLink]="['/dragons']" routerLinkActive="router-link-active" (click)="drawer.close()"><mat-icon inline=true>fireplace</mat-icon>Dragons</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -22,9 +23,11 @@
       <!-- This fills the remaining space of the current row -->
       <span class="fill-remaining-space"></span>
       <button mat-icon-button [routerLink]="['/home']" routerLinkActive="router-link-active" *ngIf="!(isHandset$ | async)">Home</button>
-      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isLoggedIn"><mat-icon inline=true>account_circle</mat-icon></button>
+      <button mat-icon-button [routerLink]="['/dragons']" routerLinkActive="router-link-active" *ngIf="!(isHandset$ | async)">Dragons</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon inline=true>account_circle</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="logout()">Logout</button>
+        <button mat-menu-item *ngIf="!isLoggedIn" [routerLink]="['/login']" routerLinkActive="router-link-active">Login</button>
+        <button mat-menu-item *ngIf="isLoggedIn" (click)="logout()">Logout</button>
       </mat-menu>
     </mat-toolbar>
     <!-- Add Content Here -->

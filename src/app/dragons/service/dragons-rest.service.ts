@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConfigService } from '../../config/service/config.service';
 import { DragonListItemResponse } from '../integration/dragon-list-item.response';
+import { DragonRequest } from '../integration/dragon.request';
+import { DragonResponse } from '../integration/dragon.response';
 
 @Injectable()
 export class DragonsRestService {
@@ -13,5 +15,21 @@ export class DragonsRestService {
 
   public getDragons(): Observable<DragonListItemResponse[]> {
     return this.http.get<DragonListItemResponse[]>(this.config.getDragonsApiUrl());
+  }
+
+  public getDragon(id: string): Observable<DragonResponse> {
+    return this.http.get<DragonResponse>(`${this.config.getDragonsApiUrl()}/${id}`);
+  }
+
+  public addDragon(dragon: DragonRequest): Observable<DragonResponse> {
+    return this.http.post<DragonResponse>(`${this.config.getDragonsApiUrl()}`, dragon);
+  }
+
+  public updateDragon(dragon: DragonRequest): Observable<DragonResponse> {
+    return this.http.put<DragonResponse>(`${this.config.getDragonsApiUrl()}/${dragon.id}`, dragon);
+  }
+
+  public deleteDragon(id: string): Observable<DragonResponse> {
+    return this.http.delete<DragonResponse>(`${this.config.getDragonsApiUrl()}/${id}`);
   }
 }

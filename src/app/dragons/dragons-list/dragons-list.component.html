@@ -2,13 +2,13 @@
   <mat-card-title>Dragons List</mat-card-title>
   <mat-card-content>
     <div class="top-container">
-    <form [formGroup]="form">
-      <mat-form-field appearance="standard" class="full-width">
-      <input matInput type="search" placeholder="Filter" formControlName="filterCtrl">
-      <mat-spinner matSuffix [diameter]="20" *ngIf="isLoading"></mat-spinner>
-      <mat-hint align="end">Filter by name, type or ID.</mat-hint>
-      </mat-form-field>
-    </form>
+      <form [formGroup]="form">
+        <mat-form-field appearance="standard" class="full-width">
+          <input matInput type="search" placeholder="Filter" formControlName="filterCtrl">
+          <mat-spinner matSuffix [diameter]="20" *ngIf="isLoading"></mat-spinner>
+          <mat-hint align="end">Filter by name, type or ID.</mat-hint>
+        </mat-form-field>
+      </form>
     </div>
   
     <div class="table-container">

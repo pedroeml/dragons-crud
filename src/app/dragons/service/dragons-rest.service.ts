@@ -25,8 +25,8 @@ export class DragonsRestService {
     return this.http.post<DragonResponse>(`${this.config.getDragonsApiUrl()}`, dragon);
   }
 
-  public updateDragon(dragon: DragonRequest): Observable<DragonResponse> {
-    return this.http.put<DragonResponse>(`${this.config.getDragonsApiUrl()}/${dragon.id}`, dragon);
+  public updateDragon(id: string, dragon: DragonRequest): Observable<DragonResponse> {
+    return this.http.put<DragonResponse>(`${this.config.getDragonsApiUrl()}/${id}`, dragon);
   }
 
   public deleteDragon(id: string): Observable<DragonResponse> {

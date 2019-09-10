@@ -2,6 +2,11 @@
   width: 600px;
   margin: auto;
 }
+
+.mat-card.card-mobile {
+  width: auto;
+  height: auto;
+}
   
 .mat-card .full-width {
   width: 100%;
@@ -22,4 +27,8 @@ table {
   
 th.mat-sort-header-sorted {
   color: black;
+}
+
+.hide-table-column {
+  display: none;
 }

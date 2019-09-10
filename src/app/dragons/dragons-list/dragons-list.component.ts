@@ -29,7 +29,7 @@ export class DragonsListComponent implements OnInit, OnDestroy {
     this.unsubscribe$ = new Subject<void>();
     this.isLoading = false;
     this.tableSizeOptions = [5, 10, 20];
-    this.displayedColumns = ['id', 'name', 'type'];
+    this.displayedColumns = ['name', 'type', 'date'];
     this.getDragons().subscribe();
   }
 
@@ -66,6 +66,14 @@ export class DragonsListComponent implements OnInit, OnDestroy {
       tap(dragons => {
         this.dataSource = new MatTableDataSource(dragons);
         this.dataSource.sort = this.sort;
+        this.dataSource.sortingDataAccessor = (item, property): string | number => {
+          switch (property) {
+            case 'date':
+              return item.createdAt.valueOf();
+            default:
+              return item[property];
+          }
+        };
         this.dataSource.paginator = this.paginator;
       }));
   }
@@ -73,5 +81,9 @@ export class DragonsListComponent implements OnInit, OnDestroy {
   private applyFilter(filterValue: string): DragonListItemModel[] {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
     return this.dataSource.filteredData;
+  }
+
+  get isMobileDevice(): boolean {
+    return screen.width < 650;
   }
 }

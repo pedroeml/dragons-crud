@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
+import { UserResponse } from '../integration/user.response';
 import { UserModel } from '../model/user.model';
-import { UserResponse } from './../integration/user.response';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {

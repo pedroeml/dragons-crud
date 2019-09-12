@@ -1,9 +1,13 @@
 <mat-card [ngClass]="{'card-mobile': isMobileDevice}">
-  <mat-card-title *ngIf="!isLoading">{{ dragon.name }}</mat-card-title>
+  <mat-card-title *ngIf="!isLoading">Dragon Details (ID: {{ dragon.id }})</mat-card-title>
   <mat-card-content>
     <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
     <div *ngIf="!isLoading">
-      <app-dragon-form [dragon]="dragon"></app-dragon-form>
+      <app-dragon-form
+        [dragon]="dragon"
+        [isLoading]="isUpdating"
+        (editedDragon)="updateDragon($event)">
+      </app-dragon-form>
     </div>
   </mat-card-content>
 </mat-card>

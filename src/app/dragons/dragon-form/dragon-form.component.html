@@ -1,14 +1,28 @@
 <form [formGroup]="form">
-  <mat-form-field>
-    <input matInput type="text" placeholder="Name" formControlName="nameCtrl">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" placeholder="Type" formControlName="typeCtrl">
-  </mat-form-field>
-  <mat-form-field>
+  <div class="first-row">
+    <mat-form-field class="name">
+      <input matInput type="text" placeholder="Name" formControlName="nameCtrl">
+    </mat-form-field>
+    <mat-form-field class="type">
+      <input matInput type="text" placeholder="Type" formControlName="typeCtrl">
+    </mat-form-field>
+    <mat-form-field class="date">
+      <input matInput [readonly]="true" type="text" placeholder="Creation Date" formControlName="dateCtrl">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="full-width">
     <input matInput type="text" placeholder="History" formControlName="historyCtrl">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="full-width">
     <textarea matInput placeholder="Histories" formControlName="historiesCtrl"></textarea>
   </mat-form-field>
+
+  <div class="footer">
+    <span class="fill-remaining-space"></span>
+    <mat-spinner matSuffix matTooltip="Loading..." [diameter]="20" *ngIf="isLoading"></mat-spinner>
+    <span class="fill-remaining-space"></span>    
+    <button class="cancel" (click)="cancel()"  mat-button>Cancel</button>
+    <button [ngClass]="{disabled: !form.valid}" (click)="save()"  mat-button>Save</button>
+  </div>
 </form>

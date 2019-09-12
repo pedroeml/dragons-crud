@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
+import { DragonRequest } from '../integration/dragon.request';
 import { DragonModel } from '../model/dragon.model';
 import { DragonsService } from '../service/dragons.service';
 
@@ -15,12 +16,14 @@ export class DragonDetailsComponent {
   private id: string;
   public dragon: DragonModel;
   public isLoading: boolean;
+  public isUpdating: boolean;
 
   constructor(
     private readonly service: DragonsService,
     private readonly route: ActivatedRoute,
     private readonly router: Router) {
     this.isLoading = false;
+    this.isUpdating = false;
     this.loadDragon().subscribe();
   }
 
@@ -43,5 +46,17 @@ export class DragonDetailsComponent {
 
   get isMobileDevice(): boolean {
     return screen.width < 650;
+  }
+
+  public updateDragon(updatedDragon: DragonRequest): void {
+    if (!isNullOrUndefined(updatedDragon)) {
+      this.isUpdating = true;
+      this.service.updateDragon(this.id, updatedDragon).pipe(
+        tap(() => { this.isUpdating = false; }),
+        tap(() => { this.router.navigateByUrl('/dragons'); }),
+      ).subscribe();
+    } else {
+      this.router.navigateByUrl('/dragons');
+    }
   }
 }

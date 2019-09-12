@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule,
-         MatTableModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
+         MatSortModule, MatTableModule, MatTooltipModule } from '@angular/material';
 import { ConfigModule } from '../config/config.module';
 import { DragonDetailsComponent } from './dragon-details/dragon-details.component';
 import { DragonFormComponent } from './dragon-form/dragon-form.component';
@@ -20,6 +20,7 @@ import { DragonsService } from './service/dragons.service';
     DragonsRoutingModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,

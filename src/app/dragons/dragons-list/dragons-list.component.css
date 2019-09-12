@@ -18,9 +18,20 @@ mat-form-field.full-width {
 mat-card-title {
   margin: auto;
 }
+
+button mat-icon {
+  font-size: 2em;
+  color: green
+}
   
 table {
   width: 100%;
+}
+
+.title-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
 }
   
 .table-container {

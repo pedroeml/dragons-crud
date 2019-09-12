@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
          MatSortModule, MatTableModule, MatTooltipModule } from '@angular/material';
 import { ConfigModule } from '../config/config.module';
+import { DragonAddComponent } from './dragon-add/dragon-add.component';
 import { DragonDetailsComponent } from './dragon-details/dragon-details.component';
 import { DragonFormComponent } from './dragon-form/dragon-form.component';
 import { DragonsListComponent } from './dragons-list/dragons-list.component';
@@ -13,7 +14,7 @@ import { DragonsRestService } from './service/dragons-rest.service';
 import { DragonsService } from './service/dragons.service';
 
 @NgModule({
-  declarations: [DragonDetailsComponent, DragonFormComponent, DragonsListComponent],
+  declarations: [DragonAddComponent, DragonDetailsComponent, DragonFormComponent, DragonsListComponent],
   imports: [
     CommonModule,
     ConfigModule,

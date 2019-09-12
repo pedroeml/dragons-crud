@@ -1,5 +1,8 @@
 <mat-card [ngClass]="{'card-mobile': isMobileDevice}">
-  <mat-card-title>Dragons List</mat-card-title>
+  <div class="title-container">
+    <mat-card-title>Dragons List</mat-card-title>
+    <button mat-icon-button matTooltip="Add new dragon" [routerLink]="['/dragons/add']" routerLinkActive="router-link-active"><mat-icon inline=true>add</mat-icon></button>
+  </div>
   <mat-card-content>
     <div class="top-container">
       <form [formGroup]="form">

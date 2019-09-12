@@ -24,6 +24,13 @@ export class DragonsService {
     );
   }
 
+  public addDragon(dragonRequest: DragonRequest): Observable<DragonModel> {
+    return this.restService.postDragon(dragonRequest).pipe(
+      map(dragon => new DragonModel(dragon)),
+      catchError(() => of(undefined)),
+    );
+  }
+
   public updateDragon(id: string, dragonRequest: DragonRequest): Observable<DragonModel> {
     return this.restService.putDragon(id, dragonRequest).pipe(
       map(dragon => new DragonModel(dragon)),

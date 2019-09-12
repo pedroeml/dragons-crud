@@ -21,11 +21,11 @@ export class DragonsRestService {
     return this.http.get<DragonResponse>(`${this.config.getDragonsApiUrl()}/${id}`);
   }
 
-  public addDragon(dragon: DragonRequest): Observable<DragonResponse> {
+  public postDragon(dragon: DragonRequest): Observable<DragonResponse> {
     return this.http.post<DragonResponse>(`${this.config.getDragonsApiUrl()}`, dragon);
   }
 
-  public updateDragon(id: string, dragon: DragonRequest): Observable<DragonResponse> {
+  public putDragon(id: string, dragon: DragonRequest): Observable<DragonResponse> {
     return this.http.put<DragonResponse>(`${this.config.getDragonsApiUrl()}/${id}`, dragon);
   }
 

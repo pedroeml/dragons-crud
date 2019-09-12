@@ -1,9 +1,20 @@
-.mat-card {
+mat-card {
   width: 600px;
   margin: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
   
-.mat-card.card-mobile {
+mat-card.card-mobile {
   width: auto;
   height: auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-card-title {
+  margin: auto;
 }

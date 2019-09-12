@@ -1,19 +1,22 @@
-.mat-card {
+mat-card {
   width: 600px;
   margin: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
 
-.mat-card.card-mobile {
+mat-card.card-mobile {
   width: auto;
   height: auto;
 }
   
-.mat-card .full-width {
+mat-form-field.full-width {
   width: 100%;
 }
-  
-.mat-form-field {
-  width: 100%;
+
+mat-card-title {
+  margin: auto;
 }
   
 table {

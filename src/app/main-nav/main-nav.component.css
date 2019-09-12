@@ -24,6 +24,24 @@
   flex: 1 1 auto;
 }
 
+mat-nav-list a.router-link-active {
+  color: blue;
+  font-weight: bold;
+}
+
+mat-nav-list a.router-link-active mat-icon {
+  color: blue;
+}
+
+mat-toolbar button.router-link-active {
+  font-weight: bold;
+}
+
+.disabled {
+  pointer-events: none;
+  color: darkgray;
+}
+
 mat-toolbar > button {
   margin: 0 10px;
   width: auto;

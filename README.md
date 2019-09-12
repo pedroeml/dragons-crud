@@ -1,27 +1,52 @@
-# DragonsCrud
+# Dragons CRUD
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+This is a simple Angular project generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9 for the Pragma Brewery Code Assignment.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+$ npm install
+```
 
-## Code scaffolding
+## Running the app
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+# development
+$ ng serve
+
+```
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```bash
+# development
+$ ng build
 
-## Running unit tests
+# production
+$ ng build --prod
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# production (GitHub Pages)
+$ ng build --prod --output-path docs --base-href /dragons-crud/
+```
 
-## Running end-to-end tests
+## Test
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```bash
+# unit tests
+$ ng test
 
-## Further help
+# end-to-end
+$ ng e2e
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Serve on a Docker container with NGINX (Production only)
+
+```bash
+# starting up
+$ docker-compose up
+
+# shutting down
+$ docker-compose down
+```
+
+Open your browser on `http://localhost/` or `http://127.0.0.1/`.

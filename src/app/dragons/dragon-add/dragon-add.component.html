@@ -1,1 +1,9 @@
-<h1>Dragon Add Component works!</h1>
+<mat-card [ngClass]="{'card-mobile': isMobileDevice}">
+  <mat-card-title>New Dragon Details</mat-card-title>
+  <mat-card-content>
+    <app-dragon-form
+      [isLoading]="isLoading"
+      (editedDragon)="addDragon($event)">
+    </app-dragon-form>
+  </mat-card-content>
+</mat-card>

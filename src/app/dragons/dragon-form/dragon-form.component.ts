@@ -23,10 +23,14 @@ export class DragonFormComponent implements OnInit {
   @Output()
   public editedDragon: EventEmitter<DragonRequest>;
 
+  @Output()
+  public deletedDragon: EventEmitter<void>;
+
   constructor(
     private readonly datePipe: DatePipe,
     private readonly formBuilder: FormBuilder) {
     this.editedDragon = new EventEmitter<DragonRequest>();
+    this.deletedDragon = new EventEmitter<void>();
   }
 
   ngOnInit() {
@@ -61,6 +65,10 @@ export class DragonFormComponent implements OnInit {
   }
 
   public cancel(): void {
-    this.editedDragon.emit(undefined);
+    this.editedDragon.emit();
+  }
+
+  public delete(): void {
+    this.deletedDragon.emit();
   }
 }

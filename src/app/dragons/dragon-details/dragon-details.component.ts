@@ -59,4 +59,12 @@ export class DragonDetailsComponent {
       this.router.navigateByUrl('/dragons');
     }
   }
+
+  public deleteDragon(): void {
+    this.isUpdating = true;
+    this.service.deleteDragon(this.id).pipe(
+      tap(() => { this.isUpdating = true; }),
+      tap(() => { this.router.navigateByUrl('/dragons'); }),
+    ).subscribe();
+  }
 }

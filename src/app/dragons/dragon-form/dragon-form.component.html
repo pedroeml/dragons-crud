@@ -22,7 +22,8 @@
     <span class="fill-remaining-space"></span>
     <mat-spinner matSuffix matTooltip="Loading..." [diameter]="20" *ngIf="isLoading"></mat-spinner>
     <span class="fill-remaining-space"></span>    
-    <button class="cancel" (click)="cancel()"  mat-button>Cancel</button>
-    <button [ngClass]="{disabled: !form.valid}" (click)="save()"  mat-button>Save</button>
+    <button [ngClass]="{disabled: isLoading }" class="delete" (click)="delete()" *ngIf="!!dragon" mat-button>Delete</button>
+    <button class="cancel" (click)="cancel()" mat-button>Cancel</button>
+    <button [ngClass]="{disabled: !form.valid || isLoading }" (click)="save()" mat-button>Save</button>
   </div>
 </form>

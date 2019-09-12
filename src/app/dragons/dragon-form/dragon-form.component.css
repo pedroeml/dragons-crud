@@ -46,6 +46,10 @@ mat-form-field.full-width {
   margin: 0px 5px 0px 5px;
 }
 
+.footer > button.delete {
+  background-color: red;
+}
+
 .footer > button.cancel {
   background-color: darkgray;
 }

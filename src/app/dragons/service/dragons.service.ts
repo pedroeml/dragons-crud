@@ -30,4 +30,11 @@ export class DragonsService {
       catchError(() => of(undefined)),
     );
   }
+
+  public deleteDragon(id: string): Observable<DragonModel> {
+    return this.restService.deleteDragon(id).pipe(
+      map(dragon => new DragonModel(dragon)),
+      catchError(() => of(undefined)),
+    );
+  }
 }

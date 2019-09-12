@@ -6,7 +6,8 @@
       <app-dragon-form
         [dragon]="dragon"
         [isLoading]="isUpdating"
-        (editedDragon)="updateDragon($event)">
+        (editedDragon)="updateDragon($event)"
+        (deletedDragon)="deleteDragon()">
       </app-dragon-form>
     </div>
   </mat-card-content>

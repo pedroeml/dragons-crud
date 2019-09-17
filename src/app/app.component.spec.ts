@@ -1,35 +1,70 @@
-import { TestBed, async } from '@angular/core/testing';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { AuthService } from './auth/service/auth.service';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let breakpointObserver: BreakpointObserver;
+
+  const breakpointMatches = { matches: true };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatMenuModule,
+      ],
+      providers: [
+        BreakpointObserver,
+        { provide: AuthService, useClass: class { isLoggedIn() { return false; } } },
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MainNavComponent
       ],
-    }).compileComponents();
+    }).compileComponents().then(() => {
+      breakpointObserver = TestBed.get(BreakpointObserver);
+
+      spyOn(breakpointObserver, 'observe').and.returnValue(of(breakpointMatches));
+
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.debugElement.componentInstance;
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+      });
+    });
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  describe('Initializing component', () => {
+    it('should be defined', () => {
+      expect(component).toBeDefined();
+    });
   });
 
-  it(`should have as title 'dragons-crud'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('dragons-crud');
-  });
+  describe('observeIsHandset', () => {
+    let isHandset: boolean;
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to dragons-crud!');
+    beforeEach(() => {
+      component.observeIsHandset.subscribe(
+        res => { isHandset = res; }
+      );
+    });
+
+    it(`should have returned ${breakpointMatches.matches}`, () => {
+      expect(isHandset).toBe(breakpointMatches.matches);
+    });
   });
 });

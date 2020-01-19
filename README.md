@@ -1,6 +1,6 @@
 # Dragons CRUD
 
-This is a simple Angular project generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9 for the Pragma Brewery Code Assignment.
+This is a simple Angular project generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
 
 ## Installation
 

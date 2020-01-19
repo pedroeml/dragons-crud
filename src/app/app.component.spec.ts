@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
@@ -14,7 +14,10 @@ describe('AppComponent', () => {
   let component: AppComponent;
   let breakpointObserver: BreakpointObserver;
 
-  const breakpointMatches = { matches: true };
+  const breakpointMatches: BreakpointState = {
+    breakpoints: { },
+    matches: true
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

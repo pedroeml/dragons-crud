@@ -20,8 +20,8 @@ export class DragonsListComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<DragonListItemModel>;
   public tableSizeOptions: number[];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
     private readonly service: DragonsService,

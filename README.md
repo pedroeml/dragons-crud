@@ -1,6 +1,6 @@
 # Dragons CRUD
 
-This is a simple Angular project generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+This is a simple Angular project generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9 later upgraded to version 9.1.4.
 
 ## Installation
 
@@ -25,8 +25,11 @@ $ ng build
 # production
 $ ng build --prod
 
-# production (GitHub Pages)
+# production (GitHub Pages via docs folder)
 $ ng build --prod --output-path docs --base-href /dragons-crud/
+
+# production (GitHub Pages via angular-cli-ghpages)
+ng deploy --base-href=/dragons-crud/ --repo=https://github.com/<username>/<repositoryname>.git --name="Your Git Username" --email=your.mail@example.org
 ```
 
 ## Test

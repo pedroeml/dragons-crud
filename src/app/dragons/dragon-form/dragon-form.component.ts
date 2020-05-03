@@ -34,11 +34,11 @@ export class DragonFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    const name: string = this.dragon ? this.dragon.name : '';
-    const type: string = this.dragon ? this.dragon.type : '';
-    const date: string = this.datePipe.transform(this.dragon ? this.dragon.createdAt : new Date(), 'MM/dd/yyy HH:mm');
-    const history: string = this.dragon ? this.dragon.history : '';
-    const histories: string[] = this.dragon ? this.dragon.histories : [''];
+    const name: string = this.dragon && this.dragon.name ? this.dragon.name : '';
+    const type: string = this.dragon && this.dragon.type ? this.dragon.type : '';
+    const date: string = this.datePipe.transform(this.dragon && this.dragon.createdAt ? this.dragon.createdAt : new Date(), 'MM/dd/yyy HH:mm');
+    const history: string = this.dragon && this.dragon.history ? this.dragon.history : '';
+    const histories: string[] = this.dragon && this.dragon.histories ? this.dragon.histories : [''];
     this.form = this.formBuilder.group({
       nameCtrl: [name, [Validators.required]],
       typeCtrl: [type, [Validators.required]],

@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DragonListItemModel } from '../model/dragon-list-item.model';
@@ -20,8 +22,8 @@ export class DragonsListComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<DragonListItemModel>;
   public tableSizeOptions: number[];
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private readonly service: DragonsService,

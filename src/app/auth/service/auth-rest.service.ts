@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
+
 import { ConfigService } from '../../config/service/config.service';
 import { UserResponse } from '../integration/user.response';
 
@@ -12,6 +14,6 @@ export class AuthRestService {
     private readonly http: HttpClient) { }
 
   public login(username: string, password: string): Observable<UserResponse> {
-    return this.http.post<UserResponse>(`${this.configService.getAuthApiUrl()}/users/authenticate`, { username, password});
+    return this.http.post<UserResponse>(`${this.configService.getAuthApiUrl()}/users/authenticate`, { username, password });
   }
 }

@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { ConfigModule } from '../config/config.module';
 import { DragonAddComponent } from './dragon-add/dragon-add.component';
 import { DragonDetailsComponent } from './dragon-details/dragon-details.component';
@@ -22,7 +23,12 @@ import { DragonsRestService } from './service/dragons-rest.service';
 import { DragonsService } from './service/dragons.service';
 
 @NgModule({
-  declarations: [DragonAddComponent, DragonDetailsComponent, DragonFormComponent, DragonsListComponent],
+  declarations: [
+    DragonAddComponent,
+    DragonDetailsComponent,
+    DragonFormComponent,
+    DragonsListComponent,
+  ],
   imports: [
     CommonModule,
     ConfigModule,
@@ -41,6 +47,9 @@ import { DragonsService } from './service/dragons.service';
     MatTooltipModule,
     ReactiveFormsModule,
   ],
-  providers: [DragonsService, DragonsRestService],
+  providers: [
+    DragonsService,
+    DragonsRestService,
+  ],
 })
 export class DragonsModule { }

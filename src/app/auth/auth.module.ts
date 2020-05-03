@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+
 import { ConfigModule } from '../config/config.module';
 import { AuthGuard } from './guards/auth.guard';
 import { fakeBackendProvider } from './provider/fake-backend.provider';
@@ -10,7 +11,17 @@ import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [],
-  imports: [ConfigModule, HttpClientModule],
-  providers: [AuthGuard, AuthRestService, AuthService, fakeBackendProvider, httpErrorProvider, jwtProvider]
+  imports: [
+    ConfigModule,
+    HttpClientModule,
+  ],
+  providers: [
+    AuthGuard,
+    AuthRestService,
+    AuthService,
+    fakeBackendProvider,
+    httpErrorProvider,
+    jwtProvider,
+  ],
 })
 export class AuthModule { }

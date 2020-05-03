@@ -21,7 +21,12 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  imports: [AuthModule, RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    AuthModule,
+    RouterModule.forRoot(routes),
+  ],
+  exports: [
+    RouterModule,
+  ],
 })
 export class AppRoutingModule { }

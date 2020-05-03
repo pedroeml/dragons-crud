@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { first } from 'rxjs/operators';
+
 import { UserModel } from '../../auth/model/user.model';
 import { AuthService } from '../../auth/service/auth.service';
 

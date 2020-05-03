@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+
 import { DragonListItemModel } from '../model/dragon-list-item.model';
 import { DragonsService } from '../service/dragons.service';
 
@@ -54,7 +56,8 @@ export class DragonsListComponent implements OnInit, OnDestroy {
       debounceTime(300),
       distinctUntilChanged(),
       map(search => this.applyFilter(search)),
-      tap(() => { this.isLoading = false; }));
+      tap(() => { this.isLoading = false; }),
+    );
   }
 
   private getDragons(): Observable<DragonListItemModel[]> {
@@ -63,9 +66,9 @@ export class DragonsListComponent implements OnInit, OnDestroy {
       tap(() => { this.isLoading = true; }),
       switchMap(() => this.service.getDragonsList()),
       map(dragons => dragons.sort((dragonA, dragonB) => dragonA.name.localeCompare(dragonB.name))),
-      tap(dragons => { this.dragons = dragons; }),
-      tap(() => { this.isLoading = false; }),
       tap(dragons => {
+        this.dragons = dragons;
+        this.isLoading = false;
         this.dataSource = new MatTableDataSource(dragons);
         this.dataSource.sort = this.sort;
         this.dataSource.sortingDataAccessor = (item, property): string | number => {
@@ -77,7 +80,8 @@ export class DragonsListComponent implements OnInit, OnDestroy {
           }
         };
         this.dataSource.paginator = this.paginator;
-      }));
+      }),
+    );
   }
 
   private applyFilter(filterValue: string): DragonListItemModel[] {

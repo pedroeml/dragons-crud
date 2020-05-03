@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, tap } from 'rxjs/operators';
+
+import { first } from 'rxjs/operators';
+
 import { AuthService } from '../../auth/service/auth.service';
 
 @Component({
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -39,10 +41,11 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.service.login(username, password).pipe(
       first(),
-      tap(() => { this.isLoading = false; }),
-      tap(() => { this.router.navigateByUrl(this.returnUrl); })
     ).subscribe(
-      data => { },
+      () => {
+        this.isLoading = false;
+        this.router.navigateByUrl(this.returnUrl);
+      },
       error => {
         this.error = error.error.message;
         this.isLoading = false;

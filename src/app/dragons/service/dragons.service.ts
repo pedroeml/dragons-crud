@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
 import { DragonRequest } from '../integration/dragon.request';
 import { DragonListItemModel } from '../model/dragon-list-item.model';
 import { DragonModel } from '../model/dragon.model';

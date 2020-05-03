@@ -1,6 +1,8 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
+
 import { ConfigService } from '../../config/service/config.service';
 import { UserModel } from '../model/user.model';
 import { AuthService } from '../service/auth.service';
@@ -19,8 +21,8 @@ export class JwtInterceptor implements HttpInterceptor {
     if (this.service.isLoggedIn() && isAuthApiUrl) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${user.token}`
-        }
+          Authorization: `Bearer ${user.token}`,
+        },
       });
     }
 

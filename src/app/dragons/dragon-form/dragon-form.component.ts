@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isNullOrUndefined } from 'util';
+
 import { DragonRequest } from '../integration/dragon.request';
 import { DragonModel } from '../model/dragon.model';
 
@@ -34,11 +34,11 @@ export class DragonFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    const name: string = !isNullOrUndefined(this.dragon) ? this.dragon.name : '';
-    const type: string = !isNullOrUndefined(this.dragon) ? this.dragon.type : '';
-    const date: string = this.datePipe.transform(!isNullOrUndefined(this.dragon) ? this.dragon.createdAt : new Date(), 'MM/dd/yyy HH:mm');
-    const history: string = !isNullOrUndefined(this.dragon) ? this.dragon.history : '';
-    const histories: string[] = !isNullOrUndefined(this.dragon) ? this.dragon.histories : [''];
+    const name: string = this.dragon ? this.dragon.name : '';
+    const type: string = this.dragon ? this.dragon.type : '';
+    const date: string = this.datePipe.transform(this.dragon ? this.dragon.createdAt : new Date(), 'MM/dd/yyy HH:mm');
+    const history: string = this.dragon ? this.dragon.history : '';
+    const histories: string[] = this.dragon ? this.dragon.histories : [''];
     this.form = this.formBuilder.group({
       nameCtrl: [name, [Validators.required]],
       typeCtrl: [type, [Validators.required]],

@@ -5,12 +5,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { AuthModule } from '../auth/auth.module';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [
+    LoginComponent,
+  ],
   imports: [
     AuthModule,
     CommonModule,

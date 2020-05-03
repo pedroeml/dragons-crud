@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
+
 import { UserModel } from '../model/user.model';
 import { AuthRestService } from './auth-rest.service';
 
@@ -21,14 +22,14 @@ export class AuthService {
 
   public isLoggedIn(): boolean {
     const user: UserModel = this.userValue;
-    return !isNullOrUndefined(user) && !isNullOrUndefined(user.token);
+    return user && !!user.token;
   }
 
   public login(username: string, password: string): Observable<UserModel> {
     return this.restService.login(username, password).pipe(
       map(user => new UserModel(user)),
       tap(user => {
-        if (!isNullOrUndefined(user.token)) {
+        if (user.token) {
           this.storeUser(user);
         }
       }),

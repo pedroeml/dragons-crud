@@ -1,8 +1,9 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable, of, throwError } from 'rxjs';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
+
 import { UserResponse } from '../integration/user.response';
 import { UserModel } from '../model/user.model';
 
@@ -12,27 +13,31 @@ export class FakeBackendInterceptor implements HttpInterceptor {
   private readonly token: string;
 
   constructor() {
-    this.users = [new UserModel({ id: 1, username: 'john', password: '123', firstName: 'John', lastName: 'Doe' })];
+    const user: UserResponse = {
+      id: 1,
+      username: 'john',
+      password: '123',
+      firstName: 'John',
+      lastName: 'Doe',
+    };
+    this.users = [new UserModel(user)];
     this.token = 'fake-token';
   }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return of(undefined).pipe(
       mergeMap(() => {
-        if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
-          return this.handleAuthRequest(request);
-        }
-
-        return next.handle(request);
+        const isAuthRequest: boolean = request.url.endsWith('/users/authenticate') && request.method === 'POST';
+        return isAuthRequest ? this.handleAuthRequest(request) : next.handle(request);
       }),
       materialize(),
       delay(500),
-      dematerialize()
+      dematerialize(),
     );
   }
 
   private findUserFromRequestBody(request: HttpRequest<any>): UserModel {
-    if (isNullOrUndefined(request.body)) {
+    if (!request.body) {
       return undefined;
     }
 
@@ -43,12 +48,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
   private handleAuthRequest(request: HttpRequest<any>): Observable<HttpResponse<UserResponse>> {
     const user: UserModel = this.findUserFromRequestBody(request);
 
-    if (isNullOrUndefined(user)) {
+    if (!user) {
       const errorResponse: HttpErrorResponse = new HttpErrorResponse({
         status: 400,
         error: {
-          message: 'Username or password is wrong'
-        }
+          message: 'Username or password is wrong',
+        },
       });
       return throwError(errorResponse);
     }
@@ -58,7 +63,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
-      token: this.token
+      token: this.token,
     };
     const response: HttpResponse<UserResponse> = new HttpResponse<UserResponse>({ status: 200, body });
 

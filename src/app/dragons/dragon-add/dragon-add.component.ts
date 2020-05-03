@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { tap } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
+
 import { DragonRequest } from '../integration/dragon.request';
 import { DragonsService } from '../service/dragons.service';
 
@@ -24,7 +25,7 @@ export class DragonAddComponent {
   }
 
   public addDragon(newDragon: DragonRequest): void {
-    if (!isNullOrUndefined(newDragon)) {
+    if (newDragon) {
       this.isLoading = true;
       this.service.addDragon(newDragon).pipe(
         tap(() => { this.isLoading = false; }),

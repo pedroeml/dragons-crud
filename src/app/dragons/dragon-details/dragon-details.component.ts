@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
+
 import { DragonRequest } from '../integration/dragon.request';
 import { DragonModel } from '../model/dragon.model';
 import { DragonsService } from '../service/dragons.service';
@@ -31,16 +32,17 @@ export class DragonDetailsComponent {
     return this.route.params.pipe(
       first(),
       tap(() => { this.isLoading = true; }),
-      map((params: ParamMap) => !isNullOrUndefined(params['id']) ? params['id'] : ''),
+      map((params: ParamMap) => params['id'] ? params['id'] : ''),
       tap(id => { this.id = id; }),
       switchMap(id => this.service.getDragon(id)),
-      tap(dragon => { this.dragon = dragon; }),
-      tap(() => { this.isLoading = false; }),
       tap(dragon => {
-        if (isNullOrUndefined(dragon)) {
+        this.dragon = dragon;
+        this.isLoading = false;
+
+        if (!dragon) {
           this.router.navigateByUrl('/dragons');
         }
-      })
+      }),
     );
   }
 
@@ -49,12 +51,12 @@ export class DragonDetailsComponent {
   }
 
   public updateDragon(updatedDragon: DragonRequest): void {
-    if (!isNullOrUndefined(updatedDragon)) {
+    if (updatedDragon) {
       this.isUpdating = true;
-      this.service.updateDragon(this.id, updatedDragon).pipe(
-        tap(() => { this.isUpdating = false; }),
-        tap(() => { this.router.navigateByUrl('/dragons'); }),
-      ).subscribe();
+      this.service.updateDragon(this.id, updatedDragon).subscribe(() => {
+        this.isUpdating = false;
+        this.router.navigateByUrl('/dragons');
+      });
     } else {
       this.router.navigateByUrl('/dragons');
     }
@@ -62,9 +64,9 @@ export class DragonDetailsComponent {
 
   public deleteDragon(): void {
     this.isUpdating = true;
-    this.service.deleteDragon(this.id).pipe(
-      tap(() => { this.isUpdating = true; }),
-      tap(() => { this.router.navigateByUrl('/dragons'); }),
-    ).subscribe();
+    this.service.deleteDragon(this.id).subscribe(() => {
+      this.isUpdating = true;
+      this.router.navigateByUrl('/dragons');
+    });
   }
 }

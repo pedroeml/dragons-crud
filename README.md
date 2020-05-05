@@ -29,7 +29,7 @@ $ ng build --prod
 $ ng build --prod --output-path docs --base-href /dragons-crud/
 
 # production (GitHub Pages via angular-cli-ghpages)
-ng deploy --base-href=/dragons-crud/ --repo=https://github.com/<username>/<repositoryname>.git --name="Your Git Username" --email=your.mail@example.org
+$ ng deploy --base-href=/dragons-crud/ --repo=https://github.com/<username>/<repositoryname>.git --name="Your Git Username" --email=your.mail@example.org
 ```
 
 ## Test

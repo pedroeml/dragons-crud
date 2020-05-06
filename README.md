@@ -1,3 +1,5 @@
+![Node.js CI](https://github.com/pedroeml/dragons-crud/workflows/Node.js%20CI/badge.svg)
+
 # Dragons CRUD
 
 This is a simple Angular project generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9 later upgraded to version 9.1.4.
